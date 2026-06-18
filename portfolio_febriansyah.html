@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Febriansyah Putra Della – Portfolio</title>
+<style>
+  :root {
+    --primary: #0f172a;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --card: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #334155;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; width:100%; z-index:100;
+    background: rgba(15,23,42,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.9rem 2.5rem;
+  }
+  .logo { font-weight:700; font-size:1.1rem; background: linear-gradient(90deg,#3b82f6,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .nav-links { display:flex; gap:1.8rem; list-style:none; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:.9rem; transition:.2s; }
+  .nav-links a:hover { color:var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display:flex; align-items:center; justify-content:center;
+    padding: 6rem 2rem 4rem;
+    background: radial-gradient(ellipse at 70% 50%, rgba(59,130,246,.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(6,182,212,.08) 0%, transparent 50%);
+  }
+  .hero-inner { max-width:1100px; width:100%; display:flex; gap:4rem; align-items:center; flex-wrap:wrap; }
+  .hero-text { flex:1; min-width:280px; }
+  .hero-badge {
+    display:inline-block; background: rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.3);
+    color:var(--accent); padding:.3rem .9rem; border-radius:999px; font-size:.78rem;
+    margin-bottom:1rem; letter-spacing:.05em;
+  }
+  .hero-text h1 { font-size:clamp(2rem,4vw,3.2rem); font-weight:800; line-height:1.15; margin-bottom:.5rem; }
+  .hero-text h1 span { background:linear-gradient(90deg,#3b82f6,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero-text .subtitle { color:var(--muted); font-size:1.05rem; margin-bottom:1.5rem; }
+  .hero-text p { color:#cbd5e1; line-height:1.75; margin-bottom:2rem; max-width:520px; }
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn-primary {
+    background: linear-gradient(90deg,#3b82f6,#06b6d4); color:#fff;
+    padding:.7rem 1.6rem; border-radius:8px; text-decoration:none;
+    font-weight:600; font-size:.9rem; transition:.2s; border:none; cursor:pointer;
+    display:inline-flex; align-items:center; gap:.5rem;
+  }
+  .btn-primary:hover { opacity:.88; transform:translateY(-1px); }
+  .btn-outline {
+    background:transparent; color:var(--accent); border:1.5px solid var(--accent);
+    padding:.7rem 1.6rem; border-radius:8px; text-decoration:none;
+    font-weight:600; font-size:.9rem; transition:.2s; cursor:pointer;
+    display:inline-flex; align-items:center; gap:.5rem;
+  }
+  .btn-outline:hover { background:rgba(59,130,246,.1); }
+
+  /* PHOTO */
+  .hero-photo { flex-shrink:0; }
+  .photo-ring {
+    width:220px; height:220px; border-radius:50%;
+    background: linear-gradient(135deg,#3b82f6,#06b6d4);
+    padding:4px; box-shadow: 0 0 40px rgba(59,130,246,.35);
+  }
+  .photo-inner {
+    width:100%; height:100%; border-radius:50%;
+    background: var(--card);
+    display:flex; align-items:center; justify-content:center;
+    font-size:5rem; overflow:hidden;
+  }
+  .photo-inner img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+  .photo-placeholder { font-size:5.5rem; line-height:1; }
+
+  /* SECTION */
+  section { padding: 5rem 2rem; }
+  .container { max-width:1100px; margin:0 auto; }
+  .sec-title {
+    font-size:1.9rem; font-weight:800; margin-bottom:.4rem;
+    background:linear-gradient(90deg,#3b82f6,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .sec-sub { color:var(--muted); margin-bottom:2.5rem; font-size:.92rem; }
+  .divider { height:3px; width:50px; background:linear-gradient(90deg,#3b82f6,#06b6d4); border-radius:4px; margin-bottom:.8rem; }
+
+  /* STATS */
+  .stats { display:flex; gap:1.5rem; flex-wrap:wrap; margin:2rem 0; }
+  .stat-card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:1.2rem 1.8rem; text-align:center; flex:1; min-width:120px;
+  }
+  .stat-num { font-size:2rem; font-weight:800; background:linear-gradient(90deg,#3b82f6,#06b6d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .stat-label { color:var(--muted); font-size:.8rem; margin-top:.2rem; }
+
+  /* CARDS GRID */
+  .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.5rem; }
+  .card {
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:1.6rem; transition:.25s; position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,#3b82f6,#06b6d4);
+  }
+  .card:hover { transform:translateY(-4px); border-color:rgba(59,130,246,.4); box-shadow:0 8px 30px rgba(0,0,0,.3); }
+  .card-icon { font-size:2rem; margin-bottom:.8rem; }
+  .card-title { font-weight:700; font-size:1.05rem; margin-bottom:.3rem; }
+  .card-sub { color:var(--accent2); font-size:.82rem; margin-bottom:.8rem; }
+  .card-date { color:var(--muted); font-size:.78rem; margin-bottom:.8rem; background:rgba(59,130,246,.1); display:inline-block; padding:.2rem .7rem; border-radius:999px; }
+  .card ul { list-style:none; padding:0; }
+  .card ul li { color:#cbd5e1; font-size:.88rem; line-height:1.6; padding:.25rem 0; padding-left:1.1rem; position:relative; }
+  .card ul li::before { content:'▸'; position:absolute; left:0; color:var(--accent); }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:2rem; }
+  .timeline::before { content:''; position:absolute; left:7px; top:0; bottom:0; width:2px; background:var(--border); }
+  .tl-item { position:relative; margin-bottom:2rem; }
+  .tl-dot {
+    position:absolute; left:-2rem; top:4px; width:16px; height:16px; border-radius:50%;
+    background:linear-gradient(135deg,#3b82f6,#06b6d4); border:3px solid var(--primary);
+    box-shadow:0 0 10px rgba(59,130,246,.5);
+  }
+  .tl-content { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1.4rem; }
+  .tl-title { font-weight:700; font-size:1rem; margin-bottom:.2rem; }
+  .tl-org { color:var(--accent2); font-size:.85rem; }
+  .tl-date { color:var(--muted); font-size:.78rem; margin:.4rem 0 .8rem; }
+  .tl-list { list-style:none; padding:0; }
+  .tl-list li { color:#cbd5e1; font-size:.85rem; line-height:1.65; padding:.2rem 0 .2rem 1.1rem; position:relative; }
+  .tl-list li::before { content:'▸'; position:absolute; left:0; color:var(--accent); }
+
+  /* SKILLS */
+  .skills-wrap { display:flex; flex-wrap:wrap; gap:1.5rem; }
+  .skill-group { flex:1; min-width:280px; background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.6rem; }
+  .skill-group h3 { font-size:1rem; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:.5rem; }
+  .skill-tags { display:flex; flex-wrap:wrap; gap:.6rem; }
+  .tag {
+    background:rgba(59,130,246,.12); border:1px solid rgba(59,130,246,.25);
+    color:var(--accent); padding:.3rem .85rem; border-radius:999px; font-size:.8rem;
+  }
+  .tag.cyan { background:rgba(6,182,212,.12); border-color:rgba(6,182,212,.25); color:var(--accent2); }
+
+  /* CERTIF */
+  .certif-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; }
+  .certif-card {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:1.2rem; display:flex; gap:.9rem; align-items:flex-start;
+    transition:.2s;
+  }
+  .certif-card:hover { border-color:rgba(59,130,246,.4); }
+  .certif-icon { font-size:1.8rem; flex-shrink:0; }
+  .certif-name { font-size:.88rem; font-weight:600; line-height:1.4; }
+  .certif-year { color:var(--muted); font-size:.76rem; margin-top:.2rem; }
+
+  /* CONTACT */
+  .contact-wrap { display:flex; flex-wrap:wrap; gap:1.2rem; }
+  .contact-item {
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:1.1rem 1.5rem; display:flex; align-items:center; gap:.9rem;
+    text-decoration:none; color:var(--text); transition:.2s; flex:1; min-width:200px;
+  }
+  .contact-item:hover { border-color:var(--accent); transform:translateY(-2px); }
+  .contact-icon { font-size:1.4rem; }
+  .contact-label { color:var(--muted); font-size:.75rem; }
+  .contact-val { font-size:.9rem; font-weight:600; }
+
+  /* DOWNLOAD SECTION */
+  .dl-box {
+    background: linear-gradient(135deg, rgba(59,130,246,.15), rgba(6,182,212,.1));
+    border:1px solid rgba(59,130,246,.3); border-radius:20px;
+    padding:2.5rem; text-align:center; margin-top:1rem;
+  }
+  .dl-box h3 { font-size:1.4rem; font-weight:800; margin-bottom:.5rem; }
+  .dl-box p { color:var(--muted); margin-bottom:1.5rem; }
+
+  /* FOOTER */
+  footer { text-align:center; padding:2rem; color:var(--muted); font-size:.83rem; border-top:1px solid var(--border); }
+
+  /* UPLOAD AREA */
+  .upload-area {
+    border:2px dashed var(--border); border-radius:12px; padding:1.5rem;
+    text-align:center; cursor:pointer; transition:.2s; margin-bottom:1rem;
+  }
+  .upload-area:hover { border-color:var(--accent); background:rgba(59,130,246,.05); }
+  .upload-area input { display:none; }
+  .upload-hint { color:var(--muted); font-size:.85rem; margin-top:.4rem; }
+
+  @media(max-width:640px){
+    nav { padding:.8rem 1rem; }
+    .nav-links { gap:1rem; }
+    .hero-inner { flex-direction:column-reverse; text-align:center; gap:2rem; }
+    .hero-btns { justify-content:center; }
+    .hero-text p { margin:0 auto 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">FPD.</div>
+  <ul class="nav-links">
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#experience">Pengalaman</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#skills">Skill</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">⚡ Automation Engineering Student</div>
+      <h1>Febriansyah<br><span>Putra Della</span></h1>
+      <p class="subtitle">D4 Teknologi Rekayasa Otomasi · Universitas Diponegoro</p>
+      <p>Mahasiswa semester 6 dengan IPK 3,64 yang bersemangat dalam dunia industri proses, manufaktur, robotik, sistem otomasi, PLC, dan SCADA. Terbiasa bekerja mandiri maupun kolaboratif dalam tim dengan kemampuan adaptasi dan kemauan belajar yang tinggi.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="downloadCV()">⬇ Download CV</button>
+        <a href="#contact" class="btn-outline">📬 Hubungi Saya</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-ring">
+        <div class="photo-inner" id="photoContainer">
+          <span class="photo-placeholder">👨‍💻</span>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:.8rem;">
+        <label style="cursor:pointer;color:var(--accent);font-size:.78rem;background:rgba(59,130,246,.1);padding:.3rem .8rem;border-radius:999px;border:1px solid rgba(59,130,246,.25);">
+          📷 Upload Foto
+          <input type="file" accept="image/*" onchange="uploadPhoto(event)" style="display:none">
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:2rem 2rem 3rem">
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card"><div class="stat-num">3.64</div><div class="stat-label">IPK Saat Ini</div></div>
+      <div class="stat-card"><div class="stat-num">2+</div><div class="stat-label">Pengalaman Magang</div></div>
+      <div class="stat-card"><div class="stat-num">4+</div><div class="stat-label">Organisasi Aktif</div></div>
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Proyek Selesai</div></div>
+      <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Sertifikasi</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PENGALAMAN MAGANG -->
+<section id="experience">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Pengalaman Magang</h2>
+    <p class="sec-sub">Pengalaman kerja nyata di industri teknologi dan manufaktur</p>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Engineer</div>
+          <div class="tl-org">PT. Sensor Teknologi Indonesia (Sensyinc) – Bandung, Jawa Barat</div>
+          <div class="tl-date">Juni 2022 – Desember 2022</div>
+          <ul class="tl-list">
+            <li>Kalibrasi dan perawatan sensor pH, amonia, COD, dan Total Suspended Solid</li>
+            <li>Perbaikan panel box kelistrikan yang mengalami kerusakan agar berfungsi optimal dan aman</li>
+            <li>Instalasi sistem pemantauan limbah pabrik untuk pengawasan kualitas secara berkelanjutan</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-title">Maintenance</div>
+          <div class="tl-org">PT. Samcon – Purwakarta, Jawa Barat</div>
+          <div class="tl-date">Juni 2021 – Juli 2021</div>
+          <ul class="tl-list">
+            <li>Perawatan dan pemeliharaan mesin produksi untuk memastikan kinerja tetap optimal</li>
+            <li>Instalasi dan pengkabelan listrik pada panel kontrol sesuai standar keselamatan kerja</li>
+            <li>Pembuatan dan perakitan meja serta kotak surat perawatan alat operasional</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PENDIDIKAN -->
+<section id="education" style="padding-top:0">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Pendidikan</h2>
+    <p class="sec-sub">Latar belakang akademik di bidang teknik otomasi</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">🎓</div>
+        <div class="card-title">D4 Teknologi Rekayasa Otomasi</div>
+        <div class="card-sub">Universitas Diponegoro</div>
+        <div class="card-date">2023 – Sekarang</div>
+        <p style="color:#cbd5e1;font-size:.88rem;">IPK: <strong style="color:#3b82f6;">3.64</strong> · Semester 6</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏫</div>
+        <div class="card-title">Instrumentasi dan Otomatisasi Proses</div>
+        <div class="card-sub">SMKN 1 Purwakarta</div>
+        <div class="card-date">2019 – 2023</div>
+        <p style="color:#cbd5e1;font-size:.88rem;">Jurusan Instrumentasi & Otomatisasi Proses</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYEK -->
+<section id="projects" style="padding-top:3rem">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Proyek</h2>
+    <p class="sec-sub">Implementasi praktis dari ilmu teknik otomasi</p>
+    <div class="grid-2">
+
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">Sistem Pemanas Boiler Otomatis Miniatur</div>
+        <div class="card-sub">Menggunakan ESP32</div>
+        <div class="card-date">April – Juni 2025 · Praktikum Instrumentasi Industri</div>
+        <ul>
+          <li>Mengembangkan miniatur sistem pemanas boiler otomatis berbasis ESP32</li>
+          <li>Mengintegrasikan sensor dan logika kontrol untuk simulasi proses pemanasan industri</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">PCB Full Wave Rectifier</div>
+        <div class="card-sub">Elektronika Daya</div>
+        <div class="card-date">Mei 2024 · Mata Kuliah Elektronika Daya</div>
+        <ul>
+          <li>Merancang dan merakit modul rangkaian Full Wave Rectifier pada PCB</li>
+          <li>Implementasi praktis dari teori elektronika daya</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🏗️</div>
+        <div class="card-title">Membuat Rak Besi</div>
+        <div class="card-sub">Teknologi Mekanik</div>
+        <div class="card-date">Maret – Mei 2024 · Praktikum Teknologi Mekanik</div>
+        <ul>
+          <li>Membuat rak besi menggunakan berbagai alat mekanik</li>
+          <li>Pengenalan praktis terhadap cara kerja dan fungsi peralatan mekanik</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Kemampuan</h2>
+    <p class="sec-sub">Hard skill teknis dan soft skill profesional</p>
+    <div class="skills-wrap">
+      <div class="skill-group">
+        <h3>⚙️ Hard Skills</h3>
+        <div class="skill-tags">
+          <span class="tag">Ladder Diagram</span>
+          <span class="tag">CX-One</span>
+          <span class="tag">CTRLX</span>
+          <span class="tag">Schneider EcoStruxure</span>
+          <span class="tag">Arduino IDE</span>
+          <span class="tag">Visual Studio Code</span>
+          <span class="tag">LabVIEW</span>
+          <span class="tag">STM32CubeIDE</span>
+          <span class="tag">STM32CubeMX</span>
+          <span class="tag">SolidWorks</span>
+          <span class="tag">Welding</span>
+          <span class="tag">Cutting Wheel</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>🤝 Soft Skills</h3>
+        <div class="skill-tags">
+          <span class="tag cyan">Komunikasi</span>
+          <span class="tag cyan">Kerjasama Tim</span>
+          <span class="tag cyan">Negosiasi</span>
+          <span class="tag cyan">Berpikir Kritis</span>
+          <span class="tag cyan">Problem Solving</span>
+          <span class="tag cyan">Adaptasi</span>
+          <span class="tag cyan">Leadership</span>
+          <span class="tag cyan">Manajemen Waktu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANISASI -->
+<section id="org" style="padding-top:3rem">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Organisasi & Kepanitiaan</h2>
+    <p class="sec-sub">Aktif dalam pengembangan organisasi kemahasiswaan</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-icon">👑</div>
+        <div class="card-title">Ketua Bidang KPSDM</div>
+        <div class="card-sub">HIMATRO – Universitas Diponegoro</div>
+        <div class="card-date">Mei 2025 – Februari 2026</div>
+        <ul>
+          <li>Memimpin perencanaan dan pengembangan kapasitas anggota</li>
+          <li>Mengkoordinasi perekrutan, pembinaan dan evaluasi SDM jurusan</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Sekretaris & Bendahara Bidang KPSDM</div>
+        <div class="card-sub">HIMATRO – Universitas Diponegoro</div>
+        <div class="card-date">Juni 2024 – April 2025</div>
+        <ul>
+          <li>Menyusun dan mengarsipkan surat masuk/keluar bidang</li>
+          <li>Penghubung komunikasi administratif dengan pengurus inti</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌟</div>
+        <div class="card-title">Staff Muda PSDM</div>
+        <div class="card-sub">Kamadiksi Undip</div>
+        <div class="card-date">Februari – Desember 2025</div>
+        <ul>
+          <li>Terlibat dalam kaderisasi, pelatihan, dan pengembangan soft skill</li>
+          <li>Koordinasi internal antaranggota dan antarbidang</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <div class="card-title">Kepanitiaan Utama</div>
+        <div class="card-sub">Berbagai Kegiatan Kemahasiswaan</div>
+        <div class="card-date">2023 – 2025</div>
+        <ul>
+          <li>Steering Committee LKM Pra Dasar (2025)</li>
+          <li>Ketua Pelaksana Sidang AD/ART Kamadiksi (2025)</li>
+          <li>Ketua Pelaksana Roadshow Himpunan BEM SV (2024)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERTIFIKASI -->
+<section id="cert" style="padding-top:3rem">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Sertifikasi</h2>
+    <p class="sec-sub">Sertifikat pelatihan dan pengembangan diri</p>
+    <div class="certif-grid">
+      <div class="certif-card">
+        <div class="certif-icon">🥇</div>
+        <div><div class="certif-name">LKMM Tingkat Dasar</div><div class="certif-year">2024</div></div>
+      </div>
+      <div class="certif-card">
+        <div class="certif-icon">🏅</div>
+        <div><div class="certif-name">Leadership Training</div><div class="certif-year">2024</div></div>
+      </div>
+      <div class="certif-card">
+        <div class="certif-icon">🎖️</div>
+        <div><div class="certif-name">LKMM Pra Dasar</div><div class="certif-year">2023</div></div>
+      </div>
+      <div class="certif-card">
+        <div class="certif-icon">📜</div>
+        <div><div class="certif-name">Class of Development</div><div class="certif-year">2023</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD CV -->
+<section style="padding-top:3rem">
+  <div class="container">
+    <div class="dl-box">
+      <div style="font-size:3rem;margin-bottom:.8rem;">📄</div>
+      <h3>Download CV Saya</h3>
+      <p>Upload file CV Anda terlebih dahulu, lalu klik tombol download</p>
+      <div class="upload-area" onclick="document.getElementById('cvFile').click()">
+        <input type="file" id="cvFile" accept=".pdf,.doc,.docx" onchange="handleCVUpload(event)">
+        <div style="font-size:2rem">📁</div>
+        <div style="font-weight:600;margin:.4rem 0">Klik untuk Upload CV</div>
+        <div class="upload-hint">Format: PDF, DOC, DOCX · Maks 10MB</div>
+      </div>
+      <div id="cvStatus" style="margin-bottom:1rem;color:var(--muted);font-size:.85rem;"></div>
+      <button class="btn-primary" onclick="downloadCV()" id="dlBtn" style="opacity:.5;pointer-events:none;">
+        ⬇ Download CV Febriansyah
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section id="contact">
+  <div class="container">
+    <div class="divider"></div>
+    <h2 class="sec-title">Kontak</h2>
+    <p class="sec-sub">Siap untuk berkolaborasi atau diskusi? Hubungi saya!</p>
+    <div class="contact-wrap">
+      <a class="contact-item" href="tel:081310909705">
+        <div class="contact-icon">📱</div>
+        <div><div class="contact-label">Telepon</div><div class="contact-val">081310909705</div></div>
+      </a>
+      <a class="contact-item" href="mailto:Putrad6642@gmail.com">
+        <div class="contact-icon">✉️</div>
+        <div><div class="contact-label">Email</div><div class="contact-val">Putrad6642@gmail.com</div></div>
+      </a>
+      <a class="contact-item" href="https://linkedin.com/in/febriansyah-putra" target="_blank">
+        <div class="contact-icon">💼</div>
+        <div><div class="contact-label">LinkedIn</div><div class="contact-val">Febriansyah Putra</div></div>
+      </a>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><div class="contact-label">Lokasi</div><div class="contact-val">Tembalang, Semarang</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Febriansyah Putra Della · D4 Teknologi Rekayasa Otomasi · Universitas Diponegoro</p>
+  <p style="margin-top:.4rem;">Dibuat dengan ❤️ untuk masa depan industri otomasi Indonesia</p>
+</footer>
+
+<script>
+  let cvFile = null;
+
+  function uploadPhoto(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const container = document.getElementById('photoContainer');
+      container.innerHTML = `<img src="${ev.target.result}" alt="Foto Febriansyah">`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handleCVUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    cvFile = file;
+    const status = document.getElementById('cvStatus');
+    status.innerHTML = `✅ File "<strong>${file.name}</strong>" siap didownload`;
+    status.style.color = '#22c55e';
+    const btn = document.getElementById('dlBtn');
+    btn.style.opacity = '1';
+    btn.style.pointerEvents = 'auto';
+  }
+
+  function downloadCV() {
+    if (!cvFile) {
+      alert('Silakan upload file CV terlebih dahulu melalui tombol upload di atas.');
+      return;
+    }
+    const url = URL.createObjectURL(cvFile);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = cvFile.name;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // Smooth scroll for nav
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.style.opacity = '1';
+        en.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .tl-item, .certif-card, .contact-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
